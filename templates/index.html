@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Machine Learning</title>
+    <script src="{{ url_for('static', filename='script/app.js') }}" defer></script>
+  </head>
+  <body>
+    <div class="container">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand mx-auto" href="#">Machine Learning</a>      
+        <a class="navbar-brand mx-auto" href="#">Deep Learning</a>      
+        <a class="navbar-brand mx-auto" href="#">Data Science</a>      
+        <a class="navbar-brand mx-auto" href="#">Artificial Intelligence</a>      
+      </nav>
+      <div class="row mt-1 justify-content-cente">
+        <div class="col-md-12">
+          <div id="container1" class="text-center p-4 border bg-dark text-white">
+            <h1>Prediction of Car Eval Dataset using five supervised Machine Learning Algorithms</h1>   
+          </div>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-md-6 mx-auto pl-4">
+          <input class="mb-2" type="file" id="csvFile" name="csvFile" accept=".csv">
+          <button type="button" id="myButton1" onclick="loadData()" class="btn btn-success btn-block">Load Data</button>
+        </div>
+        <div class="col-md-6 mt-3">
+          <button type="button" disabled="true" id="myButton2" onclick="prepareData()" class="btn btn-success btn-block mt-4">Prepare for Training</button>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-md-3">
+          <div class="nav-item dropdown mx-auto">
+            <div class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Select ML Model for Training
+            </div>
+            <div class="dropdown-menu" id="dropdown-menu1" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item class1 active" id="dropdown-item1" onclick="setActive('dropdown-item1','.class1')">Logistic Regression</a>
+            <a class="dropdown-item class1" id="dropdown-item2" onclick="setActive('dropdown-item2','.class1')">Decision Tree</a>
+            <a class="dropdown-item class1" id="dropdown-item3" onclick="setActive('dropdown-item3','.class1')">Random Forest</a>
+            <a class="dropdown-item class1" id="dropdown-item4" onclick="setActive('dropdown-item4','.class1')">K Nearest Neighbors</a>
+            <a class="dropdown-item class1" id="dropdown-item5" onclick="setActive('dropdown-item5','.class1')">Support Vector Machine</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <button type="button" disabled="true" id="myButton3" onclick="trainModel('dropdown-menu1')" class="btn btn-success btn-block">Apply Model</button>
+        </div>
+        <div class="col-md-3">
+            <div class="nav-item dropdown mx-auto">
+                <div class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Select ML Model for Confusion Matrix
+                </div>
+                <div class="dropdown-menu" id="dropdown-menu2" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item class2 active" id="dropdown-item6" onclick="setActive('dropdown-item6','.class2')">Logistic Regression</a>
+                  <a class="dropdown-item class2" id="dropdown-item7" onclick="setActive('dropdown-item7','.class2')">Decision Tree</a>
+                  <a class="dropdown-item class2" id="dropdown-item8" onclick="setActive('dropdown-item8','.class2')">Random Forest</a>
+                  <a class="dropdown-item class2" id="dropdown-item9" onclick="setActive('dropdown-item9','.class2')">K Nearest Neighbors</a>
+                  <a class="dropdown-item class2" id="dropdown-item10" onclick="setActive('dropdown-item10','.class2')">Support Vector Machine</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+          <button type="button" disabled="true" id="myButton4" onclick="calculateConfusionMatrix('dropdown-menu2')" class="btn btn-success btn-block">Calculate Confusion Matrix</button>
+        </div>        
+      </div>
+      <div class="row mt-4">
+        <div class="col-md-3">
+            <div class="nav-item dropdown mx-auto">
+                <div class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Select ML Model for Sensitivity
+                </div>
+            <div class="dropdown-menu" id="dropdown-menu3" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item class3 active" id="dropdown-item11" onclick="setActive('dropdown-item11','.class3')">Logistic Regression</a>
+              <a class="dropdown-item class3" id="dropdown-item12" onclick="setActive('dropdown-item12','.class3')">Decision Tree</a>
+              <a class="dropdown-item class3" id="dropdown-item13" onclick="setActive('dropdown-item13','.class3')">Random Forest</a>
+              <a class="dropdown-item class3" id="dropdown-item14" onclick="setActive('dropdown-item14','.class3')">K Nearest Neighbors</a>
+              <a class="dropdown-item class3" id="dropdown-item15" onclick="setActive('dropdown-item15','.class3')">Support Vector Machine</a>
+              </div>
+            </div>
+        </div>
+          <div class="col-md-3">
+            <button type="button" disabled="true" id="myButton5" onclick="calculateSensitivity('dropdown-menu3')" class="btn btn-success btn-block">Calculate Sensitivity</button>
+          </div> 
+        <div class="col-md-3">
+            <div class="nav-item dropdown mx-auto">
+                <div class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdown4" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Select ML Model for Specificity
+                </div>
+            <div class="dropdown-menu" id="dropdown-menu4" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item class4 active" id="dropdown-item16" onclick="setActive('dropdown-item16','.class4')">Logistic Regression</a>
+              <a class="dropdown-item class4" id="dropdown-item17" onclick="setActive('dropdown-item17','.class4')">Decision Tree</a>
+              <a class="dropdown-item class4" id="dropdown-item18" onclick="setActive('dropdown-item18','.class4')">Random Forest</a>
+              <a class="dropdown-item class4" id="dropdown-item19" onclick="setActive('dropdown-item19','.class4')">K Nearest Neighbors</a>
+              <a class="dropdown-item class4" id="dropdown-item20" onclick="setActive('dropdown-item20','.class4')">Support Vector Machine</a>
+              </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+          <button type="button" disabled="true" id="myButton6" onclick="calculateSpecificity('dropdown-menu4')" class="btn btn-success btn-block">Calculate Specificity</button>
+        </div> 
+      </div>
+      <div class="row mt-4">
+        <div class="col-md-3">
+            <div class="nav-item dropdown mx-auto">
+                <div class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdown5" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Select ML Model for ROC Curve
+                </div>
+            <div class="dropdown-menu" id="dropdown-menu5" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item class5 active" id="dropdown-item21" onclick="setActive('dropdown-item21','.class5')">Logistic Regression</a>
+              <a class="dropdown-item class5" id="dropdown-item22" onclick="setActive('dropdown-item22','.class5')">Decision Tree</a>
+              <a class="dropdown-item class5" id="dropdown-item23" onclick="setActive('dropdown-item23','.class5')">Random Forest</a>
+              <a class="dropdown-item class5" id="dropdown-item24" onclick="setActive('dropdown-item24','.class5')">K Nearest Neighbors</a>
+              <a class="dropdown-item class5" id="dropdown-item25" onclick="setActive('dropdown-item25','.class5')">Support Vector Machine</a>
+              </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+          <button type="button" disabled="true" id="myButton7" onclick="plotROC('dropdown-menu5')" class="btn btn-success btn-block">Plot ROC Curve</button>
+        </div> 
+        <div class="col-md-3">
+          <div class="nav-item dropdown mx-auto">
+            <div class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdown5" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Select ML Model for AUC
+            </div>
+            <div class="dropdown-menu" id="dropdown-menu7" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item class7 active" id="dropdown-item31" onclick="setActive('dropdown-item31','.class7')">Logistic Regression</a>
+              <a class="dropdown-item class7" id="dropdown-item32" onclick="setActive('dropdown-item32','.class7')">Decision Tree</a>
+              <a class="dropdown-item class7" id="dropdown-item33" onclick="setActive('dropdown-item33','.class7')">Random Forest</a>
+              <a class="dropdown-item class7" id="dropdown-item34" onclick="setActive('dropdown-item34','.class7')">K Nearest Neighbors</a>
+              <a class="dropdown-item class7" id="dropdown-item35" onclick="setActive('dropdown-item35','.class7')">Support Vector Machine</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <button type="button" disabled="true" id="myButton9" onclick="calculateAUC('dropdown-menu7')" class="btn btn-success btn-block">Calculate AUC</button>
+        </div>  
+      </div>
+      <div class="row mt-4">
+        <div class="col-md-6">
+          <div class="nav-item dropdown mx-auto">
+            <div class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdown6" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Select ML Model for Sensitivity at Specificity = 0.90
+            </div>
+            <div class="dropdown-menu" id="dropdown-menu6" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item class6 active" id="dropdown-item26" onclick="setActive('dropdown-item26','.class6')">Logistic Regression</a>
+            <a class="dropdown-item class6" id="dropdown-item27" onclick="setActive('dropdown-item27','.class6')">Decision Tree</a>
+            <a class="dropdown-item class6" id="dropdown-item28" onclick="setActive('dropdown-item28','.class6')">Random Forest</a>
+            <a class="dropdown-item class6" id="dropdown-item29" onclick="setActive('dropdown-item29','.class6')">K Nearest Neighbors</a>
+            <a class="dropdown-item class6" id="dropdown-item30" onclick="setActive('dropdown-item30','.class6')">Support Vector Machine</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <button type="button" disabled="true" id="myButton8" onclick="senAtSpec90('dropdown-menu6')" class="btn btn-success btn-block">Calculate Sensitivity at Specificity = 0.90</button>
+        </div> 
+      </div>
+      <div class="row mt-4 justify-content-cente">
+        <div class="col-md-12">
+          <div id="resultContainer" class="text-center p-4 border">   
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>
